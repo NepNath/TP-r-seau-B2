@@ -6,6 +6,10 @@ import socket
 import psutil
 import socket
 import ipaddress
+import datetime
+
+date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
 
 def url_check(url):
 
@@ -18,9 +22,15 @@ def url_check(url):
 
     return re.match(url_regex, url) is not None
     
-def lookup():
+def lookup(): #log fait
+    fp = open(r'C:\Windows\Temp\network.txt', 'a')
+    fp.write(f'{date} [INFO] Command <{argv[1]}> called with "{argv[2]}" \n')
+    fp.write('.\n')   
+
     if len(argv) < 3: 
         print("errrur : pas assez d'argument (hostname)")
+        fp.write("errrur : pas assez d'argument (hostname) \n")
+        fp.write('.\n')
         return
     
     hstnm = argv [2]
@@ -28,14 +38,27 @@ def lookup():
     if url_check(hstnm) == True:
         ipaddr = socket.gethostbyname(hstnm)
         print(ipaddr)
+        fp.write(f'{ipaddr} \n')
+        fp.write('.\n')
     else : 
         print("erreur URL")
+        fp.write("erreur URL \n")
+        fp.write('.\n')
+    fp.write(f'{date} [INFO] Command <lookup> was called successfully with "{argv[2]}"\n')
+    fp.write('--- \n')
+    fp.close
 
 ########
 
 def ping():
+    fp = open(r'C:\Windows\Temp\network.txt', 'a')
+    fp.write(f'{date} [INFO] Command <{argv[1]}> called with "{argv[2]}" \n')
+    fp.write('.\n')
+
     if len(argv) < 3: 
         print("errrur : pas assez d'argument (hostname)")
+        fp.write('Argument error \n')
+        fp.write('.\n')
         return
     
     addr = argv[2]
@@ -44,15 +67,27 @@ def ping():
 
     if res.returncode != 0:
         print(f"Erreur : Impossible de joindre l'adresse '{addr}'")
+        fp.write(f"error : {addr} isn't joinable")
+        fp.write('.\n')
     else:
         if any(err_msg in res.stdout for err_msg in ["Destination host unreachable", "Request timed out", "100% packet loss"]):
             print("DOWN ! ⬇️")
+            fp.write('Command output : "DOWN !" \n ')
+            fp.write('.\n')
         else:
             print("UP ! ⬆️")
+            fp.write('Command output : "UP !"\n')
+            fp.write('.\n')
+        fp.write(f'{date} [INFO] Command <lookup> was called successfully with "{argv[2]}"\n')
+    fp.write('--- \n')
+    fp.close
  
 #########
 
 def ip():
+    fp = open(r'C:\Windows\Temp\network.txt', 'a')
+    fp.write(f'{date} [INFO] Command <{argv[1]}> called with "{argv[2]}" \n')
+    fp.write('.\n')
 
     def get_ipv4_address():
         interfaces = psutil.net_if_addrs()
@@ -85,6 +120,11 @@ def ip():
     # Afficher les résultats
     print(cidr_address)
     print(available_addresses)
+    fp.write(f'{cidr_address} \n')
+    fp.write(f'{available_addresses} \n')
+    fp.write(f'{date} [INFO] Command <lookup> was called successfully with "{argv[2]}"\n')
+    fp.write('--- \n')
+    fp.close
 
 if len(argv) < 2:
     print("Erreur : Aucune commande fournie (lookup, ping, ip)")
