@@ -49,7 +49,7 @@ def ping():
             print("DOWN ! ⬇️")
         else:
             print("UP ! ⬆️")
-
+ 
 #########
 
 def ip():
