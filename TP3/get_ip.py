@@ -2,15 +2,15 @@ import psutil
 import socket
 import ipaddress
 
-def get_ipv4_address():
-    interfaces = psutil.net_if_addrs()
+def get_ipv4_address(): #c'éation de la fonction qui récupère l'ipv4
+    interfaces = psutil.net_if_addrs()  #récupère et stoque dans la fonction "interfaces" les données de ma carte réseau (adresse ip, mac etc...)
     
-    for interface_name, addresses in interfaces.items():
-        for address in addresses:
-            if address.family == socket.AF_INET:  # Vérifie si c'est une adresse IPv4
-                ip = address.address
-                netmask = address.netmask
-                return ip, netmask
+    for interface_name, addresses in interfaces.items(): #création d'une boucle qui va parcourir chaque donnée dans ma listes précédente et utiliser "addresses" comme alias 
+        for address in addresses: #même chose que au dessus en soit mais scan les adresses 
+            if address.family == socket.AF_INET:  # Vérifie si il y a une adresse IPv4 (grace au package socket) si c'en est bien une 
+                ip = address.address # stock l'ipv4 dans une variable "ip" gracce à address.address (l'un est le nom d'alias et l'autre permet de dire que tu cherche l'ip)
+                netmask = address.netmask #même chose que l'ip mais avec le netmask, la commande aide à comprendre comment récupérer des éléments précis (par exemple )
+                return ip, netmask # retourne les deux éléments pour la suite 
 
 def calculate_network_info(ip, netmask):
     # Créer un objet réseau IPv4 à partir de l'IP et du masque de sous-réseau
