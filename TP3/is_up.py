@@ -12,7 +12,7 @@ if res.returncode != 0 :
             print(f"Erreur : L'adresse '{addr}' existe po")
     elif "Destination Host Unreachable" or "Request timed out" or "100% packet loss" in res.stdout:
          print("DOWN ! ⬇️")
-else :
-        print("UP ! ⬆️")
+    else :
+         print("UP ! ⬆️")
         
     

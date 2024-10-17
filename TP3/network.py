@@ -63,7 +63,7 @@ def ping():
     
     addr = argv[2]
 
-    res = subprocess.run(['ping', '-n', '4', addr], capture_output=True, text=True)
+    res = subprocess.run(['ping', '-c', '4', addr], capture_output=True, text=True)
 
     if res.returncode != 0:
         print(f"Erreur : Impossible de joindre l'adresse '{addr}'")
