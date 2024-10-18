@@ -14,7 +14,7 @@ while True :
         data = s.recv(1024)
         if not data : break
         print(f"Donnees recues du client :  {data}")
-        
+    
 
     except socket.error: 
         print("Sorry, an error Occured")
