@@ -12,9 +12,7 @@ while True :
     print(f"Connection à {host} réussie avec le port {port}")
     try :
         data = s.recv(1024)
-        if not data : break
-
-    
+        break
 
     except socket.error: 
         print("Sorry, an error Occured")
