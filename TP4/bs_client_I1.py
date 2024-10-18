@@ -9,9 +9,12 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 s.connect((host, port))
 while True : 
+    print(f"Connection à {host} réussie avec le port {port}")
     try :
-        print(f"Connection à {host} réussie avec le port {port}")
-        pass
+        data = s.recv(1024)
+        if not data : break
+        print(f"Donnees recues du client :  {data}")
+        
 
     except socket.error: 
         print("Sorry, an error Occured")
