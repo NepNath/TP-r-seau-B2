@@ -11,6 +11,7 @@ s.connect((host, port))
 while True : 
     try :
         print(f"Connection à {host} réussie avec le port {port}")
+        pass
 
     except socket.error: 
         print("Sorry, an error Occured")
